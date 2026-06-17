@@ -29,9 +29,9 @@ console.log(gameName.slice(0,3)) //output will be "GTA" because slice() method e
 
 console.log(gameName.toUpperCase()) //output will be "GTA V" because toUpperCase() method converts a string to uppercase letters
 
-// Note that original string wont be changed because strings are premtive datatypes and they are immutable, which means that their values cannot be changed once they are created. Any operation that seems to modify a string actually creates a new string.
+// Note that original string wont be changed because string objects are immutable.
 
-const newString = gameNme.substrring(0,3) //output will be "GTA" because substring() method returns the part of the string between the start and end indexes.
+const newString = gameNme.substring(0,3) //output will be "GTA" because substring() method returns the part of the string between the start and end indexes.
 
 /*
 Start counting from the END of the string instead of the beginning.
@@ -140,4 +140,3 @@ Negative index → count from RIGHT
 
 
 
-    
