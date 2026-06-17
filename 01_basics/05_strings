@@ -1,0 +1,143 @@
+// let a = "hello" + "world"
+// console.log(a) //output will be "helloworld" because + operator concatenates strings
+
+// const name = "Misbah"
+// const repoCount = 50
+
+// console.log( name + repoCount + " Value") //output will be "Misbah50 Value" because + operator concatenates string and number, number is converted to string and then concatenated
+
+// console.log(`My name is : ${name} and my repoCount is ${repoCount}`) //output will be "My name is : Misbah and my repoCount is 50" because template literals are used to concatenate strings and variables, variables are converted to string and then concatenated
+
+// //usage of template literals is recommended over + operator because it is more readable and easier to use.
+
+ const gameName = new String ("GTA V") //output will be "GTA V" because new String() creates a new string object, but it is not recommended to use new String() because it creates a string object instead of a primitive string value, which can lead to unexpected results when comparing strings.
+
+// //many methods can be used with strings like length, toUpperCase, toLowerCase, indexOf, slice, substring, etc.
+
+// console.log(gameName[0]) //output will be "G" 
+// console.log(gameName.length) //output will be 5
+
+console.log(gameName.__proto__) //output will be String.prototype because gameName is a string object and it inherits from String.prototype
+
+//Think of prototype = a storage place containing methods and properties that objects can use.
+
+console.log(gameName.charAt(0)) //output will be "G" because charAt() method returns the character at the specified index
+
+console.log(indexOf("V")) //output will be 4 because indexOf() method returns the index of the first occurrence of the specified value
+
+console.log(gameName.slice(0,3)) //output will be "GTA" because slice() method extracts a section of a string and returns it as a new string, without modifying the original string
+
+console.log(gameName.toUpperCase()) //output will be "GTA V" because toUpperCase() method converts a string to uppercase letters
+
+// Note that original string wont be changed because strings are premtive datatypes and they are immutable, which means that their values cannot be changed once they are created. Any operation that seems to modify a string actually creates a new string.
+
+const newString = gameNme.substrring(0,3) //output will be "GTA" because substring() method returns the part of the string between the start and end indexes.
+
+/*
+Start counting from the END of the string instead of the beginning.
+
+Example:
+
+const gameName = "GTA V"
+
+Indexes from left:
+
+ G   T   A       V
+ 0   1   2   3   4
+
+Negative indexes (from right):
+
+ G   T   A       V
+-5  -4  -3  -2  -1
+
+Now your code:
+
+const anotherString = gameName.slice(-8, 4)
+
+String length is only 5.
+
+So JS sees:
+
+slice(-8, 4)
+
+Start index:
+
+-8 → beyond beginning
+→ treated as 0
+
+End index:
+
+4
+
+So it becomes:
+
+slice(0,4)
+
+Result:
+
+"GTA "
+
+More examples:
+
+const str = "hitesh"
+
+Indexes:
+
+ h  i  t  e  s  h
+ 0  1  2  3  4  5
+-6 -5 -4 -3 -2 -1
+
+Example 1:
+
+str.slice(-3)
+
+Start at -3:
+
+e s h
+
+Output:
+
+"esh"
+
+Example 2:
+
+str.slice(-4,-1)
+
+From:
+
+t e s h
+↑     ↑
+-4   -1(not included)
+
+Output:
+
+"tes"
+
+Rule to remember:
+
+Positive index → count from LEFT
+
+Negative index → count from RIGHT
+
+
+*/
+
+
+//in substring, our negative value is ignored and starts from 0, but in slice negative value is treated as length of string and starts from there. So in substring(-3) it will start from 0 and give the whole string, but in slice(-3) it will start from -3 and give the last 3 characters of the string.
+
+
+ const name = "        Misbah Pirzada        "
+ console.log(name.trim()) //output will be "Misbah Pirzada" because trim() method removes whitespace from both ends of a string
+
+ const url = "https://www.misbah.com"
+    console.log(url.replace("misbah","hitesh")) //output will be "https://www.hitesh.com" because replace() method replaces a specified value with another value in a string
+
+    console.log(url.includes("1 misbah")) //output will be false because includes() method checks if a string contains a specified value and returns true or false
+
+
+    const gameName = "GTA V"
+    console.log(gameName.split(" ")) //output will be ["GTA", "V"] because split() method splits a string into an array of substrings based on a specified separator
+
+
+
+    
