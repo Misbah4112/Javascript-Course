@@ -168,3 +168,5 @@ function returnSecondValue(my_arr){
 //direct array could also be passed like below:
 console.log(returnSecondValue([100,400,600]));
 
+
+
