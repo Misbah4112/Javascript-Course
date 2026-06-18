@@ -17,3 +17,6 @@ console.log(null >= 0)
 
 console.log("2" === 2) //false because strict equality operator also checks for datatype and here string is not equal to number)
 
+
+
+
