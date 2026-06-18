@@ -1,69 +1,69 @@
-// /*
-// functions simply means enclosing your code in a package to make it reusable
+/*
+functions simply means enclosing your code in a package to make it reusable
 
 
 
-// */
+*/
 
 
-// function say_my_name() {
-//     console.log("M");
-//     console.log("I");
-//     console.log("S");
-//     console.log("B");
-//     console.log("A");  
-// }
+function say_my_name() {
+    console.log("M");
+    console.log("I");
+    console.log("S");
+    console.log("B");
+    console.log("A");  
+}
 
-// say_my_name() //EXECUTION
-// // say_my_name //this just gives reference but does not perform execution. gives no output
-
-
-// function addTwoNumbers(n1,n2){ //parameters passed
-//     console.log( n1+n2);  
-
-// }
+say_my_name() //EXECUTION
+// say_my_name //this just gives reference but does not perform execution. gives no output
 
 
-// addTwoNumbers(3,"3") //give 33     === passed values are called arguments
-// addTwoNumbers(3,3) //gives 6
-// addTwoNumbers(3,"a") //gives 3a
-// addTwoNumbers(3,null)
+function addTwoNumbers(n1,n2){ //parameters passed
+    console.log( n1+n2);  
 
-// const result = addTwoNumbers(2,2)
-// console.log(result); //this gives undefined because no return type in above function
-
-// //==============================
-
-// function add(n1,n2){ //parameters passed
-//     let result =  n1+n2  
-// return result
-// console.log("misbah"); //wont execute after returning
-// }
-
-// const result = add(2,2)
-// console.log(`The result is: ${result}`);
+}
 
 
-// //===========================
-// //more convenient way to write code which is shorter
-// function add(n1,n2){ //parameters passed
-//    return n1+n2
-// }
+addTwoNumbers(3,"3") //give 33     === passed values are called arguments
+addTwoNumbers(3,3) //gives 6
+addTwoNumbers(3,"a") //gives 3a
+addTwoNumbers(3,null)
 
-// const result = add(2,2)
-// console.log(`The result is: ${result}`);
+const result = addTwoNumbers(2,2)
+console.log(result); //this gives undefined because no return type in above function
 
-//=======================================
+//==============================
 
-// function loginUserMessage(username){
-//     return `${username} just logged in`
+function add(n1,n2){ //parameters passed
+    let result =  n1+n2  
+return result
+console.log("misbah"); //wont execute after returning
+}
 
-// }
+const result = add(2,2)
+console.log(`The result is: ${result}`);
 
-// loginUserMessage("Misbah"); //wont print because it's not store anywhere or printed
 
-// console.log(loginUserMessage("Misbah")); //results Misbah just logged in
-// console.log(loginUserMessage()); //this results not null but undefined
+//===========================
+//more convenient way to write code which is shorter
+function add(n1,n2){ //parameters passed
+   return n1+n2
+}
+
+const result = add(2,2)
+console.log(`The result is: ${result}`);
+
+// =======================================
+
+function loginUserMessage(username){
+    return `${username} just logged in`
+
+}
+
+loginUserMessage("Misbah"); //wont print because it's not store anywhere or printed
+
+console.log(loginUserMessage("Misbah")); //results Misbah just logged in
+console.log(loginUserMessage()); //this results not null but undefined
 
 //========================================
 
@@ -111,3 +111,60 @@ function loginUserMessage(username = "sam") //this is passing default value. if 
     return `${username} just logged in`
 
 }
+
+// Now we'll discuss the shopping cart situation where the visitor on web page may keep adding product in cart and we need to keep summing it and we might not know how many more products are to come
+
+function calculatePrice(...num1){//this is rest operator which means all the incoming numbers, wrap them in one array and return it
+
+    return num1
+}
+
+console.log(calculatePrice(200,400,500))
+
+// one question often asked in interview is about the below syntax, what would be in num1 now:
+function calculatePrice(val1,val2,...num1){//this is rest operator which means all the incoming numbers, wrap them in one array and return it
+
+    return num1
+}
+
+console.log(calculatePrice(200,400,500,2000))
+
+// val1 stores 200,val2 store 400 and now 500 and 2000 WILL ONLY BE STORED IN NUM1
+ 
+
+// USAGE OF OBJECTS IN FUNCTIONS
+
+const user = {
+    username: "Misbah",
+    price: 199
+}
+
+function handleObject(anyObject){
+    console.log(`Username is ${anyObject.username} and price is ${anyObject.price}`);
+
+}
+
+handleObject(user) //pass object as argument so that its values can be accessed
+
+
+// object can also be passed withoutname like below:
+handleObject({
+username:"Misbah",
+price:199
+
+})
+
+
+
+//USAGE OF ARRAYS IN FUNCTIONS
+
+const my_new_arr = [ 100 , 200 , 300 ] 
+
+function returnSecondValue(my_arr){
+    return my_arr[1]
+}
+
+// console.log(returnSecondValue(my_new_arr));
+//direct array could also be passed like below:
+console.log(returnSecondValue([100,400,600]));
+
