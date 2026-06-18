@@ -52,3 +52,6 @@ newDate.toLocaleString('default',{
 
 //if we want to add more features of how we want the date to appear then we can use the above format, e.g before month was showed like jan not long give full month. here weekday is to be shown long format e.g Thursday
 
+
+
+
