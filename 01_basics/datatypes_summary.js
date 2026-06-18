@@ -76,3 +76,5 @@ console.log(typeof myfunc)//function. it's also called object function because i
 // null TYPE IS OBJECT
 
 
+
+
