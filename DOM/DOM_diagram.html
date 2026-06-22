@@ -1,0 +1,60 @@
+DOM is document object model. This head, body html are all objectss
+
+*/
+____________________________
+|                           |
+|          WINDOW           |
+|                           |
+|___________________________|                           
+              |
+              |
+              |
+              |
+______________|______________                           
+|                           |                           
+|          DOCUMENT         |
+|___________________________|                           
+              |
+              |
+              |
+              |
+______________|______________
+|                           |                           
+|           HTML            |
+|___________________________|                           
+              |              \
+              |               \  
+              |                \   
+              |                 \    
+______________|_____________     \         ________________________________
+|                           |      \      |                               |
+|           HEAD            |        \    |              BODY             |
+|___________________________|          \  |                               |
+    |             |                      \|_______________________________|
+    |             |                               |                      
+    |             |                               | 
+   TITLE         META                             |
+    |             |                              Div - attribute
+text node       attribute                    /          \
+                                            h1           p
+                                          |   |          |
+                                  text node  attribute   text node
+
+
+
+what we made above is basically the DOM for the html document we made in the start which tells us the classification and parent child relationships here. 
+
+When we open Browser → Inspect → Console and type `document`,
+ we get access to the DOM (Document Object Model).
+
+ The browser represents the HTML page as objects.
+ We can access specific elements using methods like:
+ document.getElementById("firstHeading")
+ and manipulate them, for example:
+ document.getElementById("firstHeading").innerHTML = "Chai aur Code"
+ This changes the content of that HTML element.
+ This is one of the main places where DOM is used:
+ JavaScript accesses and modifies webpage content dynamically.
+
+
+                                            */                                           

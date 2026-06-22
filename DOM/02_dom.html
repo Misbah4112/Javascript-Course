@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style = "background-color: gray;" >
+    <div class = "weekclass">
+
+        <div class = "day">Monday</div>
+         <div class = "day">Tuesday</div>
+          <div class = "day">Wednesday</div>
+           <div class = "day">Thursday</div>
+
+    </div>
+    
+</body>
+
+<script>
+    const parent = document.querySelector('.weekclass')
+    console.log(parent)
+    console.log(parent.children)
+        console.log(parent.children[0]) //since its array like
+
+
+        for(let i = 0 ; i <parent.children.length ;i++){
+        console.log( parent.children[i].innerHTML);
+        
+        }
+        parent.children[1].style.color = 'orange'
+        console.log(parent.firstElementChild)
+              console.log(parent.lastElementChild)
+//we can also move from child to parent and vice versa like above
+
+      const dayOne = document.querySelector('.day')
+      console.log(dayOne)
+      console.log(dayOne.parentElement)
+      console.log(dayOne.nextElementSibling)
+console.log("Nodes: ",parent.childNodes)
+// childNodes
+
+// We may expect childNodes to only return the day divs
+// (Monday to Thursday), but it returns more nodes.
+//
+// Reason:
+// childNodes returns ALL child nodes including:
+//
+// 1. Element nodes ()
+// 2. Text nodes (spaces, indentation, next lines)
+//
+// Since HTML formatting creates text nodes,
+// the output count becomes larger than expected.
+
+</script>
+</html>

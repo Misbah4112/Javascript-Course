@@ -1,0 +1,1114 @@
+{# <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Dom Learning</title>
+
+
+<style>
+    .bg-black{
+        background-color: grey ;
+    }
+</style>
+</head>
+
+<body class="bg-black">
+    
+    <div >
+        <h1 id = "title" class = "heading">
+            DOM Learning and chai aur code
+        <span style="display: none">test text</span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis qui, eveniet beatae explicabo aspernatur, dolor voluptas reiciendis reprehenderit laborum architecto omnis, provident incidunt voluptatum! Vero dignissimos est dolore dolor ipsum!</p>
+
+    </div>
+
+    <input type="password" name="" id="">
+
+    <ul>
+<li>one</li>
+<li>two</li>
+<li>three</li>
+
+    </ul>
+
+</body>
+</html>
+
+
+
+
+
+
+
+{# */
+
+Since you want this as notes, here is a cleaned version you can add.
+
+// DOM Manipulation Notes
+
+// 1. Selecting an element
+
+const title = document.getElementById("title")
+
+// Finds HTML element having:
+id="title"
+
+// ----------------------------------------------------
+
+// 2. Accessing class using .className
+
+title.className
+
+// Output:
+"heading"
+
+// Example:
+
+// HTML
+
+<h1 id="title" class="heading">Hello</h1>
+
+console.log(title.className)
+
+// Output:
+heading
+
+// ----------------------------------------------------
+
+// 3. setAttribute()
+
+title.setAttribute("class","test")
+
+// Sets or changes HTML attributes.
+
+// Before:
+
+<h1 id="title" class="heading">
+
+// After:
+
+<h1 id="title" class="test">
+
+// Output:
+undefined
+
+// Why?
+// Because attribute changes happen,
+// but nothing is returned.
+
+// Multiple classes:
+
+title.setAttribute("class","heading test")
+
+// Result:
+
+class="heading test"
+
+// ----------------------------------------------------
+
+// 4. Changing CSS using .style
+
+title.style.backgroundColor = "green"
+
+// Output:
+"green"
+
+// Effect:
+Background becomes green
+
+title.style.padding = "15px"
+
+// Output:
+"15px"
+
+// Effect:
+Padding applied
+
+title.style.borderRadius = "15px"
+
+// Output:
+"15px"
+
+// Effect:
+Rounded corners
+
+// Final visual result:
+
+element.style = {
+backgroundColor:"green",
+padding:"15px",
+borderRadius:"15px"
+}
+
+// ----------------------------------------------------
+
+// 5. innerHTML
+
+title.innerHTML = "Chai aur Code"
+
+// Before:
+
+<h1>Hello</h1>
+
+// After:
+
+<h1>Chai aur Code</h1>
+
+// Output:
+"Chai aur Code"
+
+// ----------------------------------------------------
+
+// 6. Reading content
+
+title.innerHTML
+
+// Output:
+returns HTML inside element
+
+title.textContent
+
+// Output:
+returns visible + hidden text
+
+title.innerText
+
+// Output:
+returns only visible text
+
+
+
+*/                                           
+
+
+
+difference between the innertext and test content is that if we try to hide some content by applying css properties to it, innerHTML hides it and applies css properties but textContent still showss all the data #}
+
+{# const title = document.getElementById('title')
+undefined
+title.innerText
+'DOM Learning and chai aur code'
+title.innerHTML
+'\n            DOM Learning and chai aur code\n        <span style="display: none">test text</spa #}
+
+{# innerHTML gives the entire thing with html tag too but html tags are not supported in textconten and innertext #}
+{# 
+Since you want notes, here is a cleaned version you can add.
+
+// DOM Selection using querySelector()
+
+// querySelector()
+// Returns FIRST matching element only.
+
+// ----------------------------------------------------
+
+// 1. Select by tag
+
+document.querySelector("h2")
+
+// Finds first <h2> element
+
+// Example:
+
+<h2>Lorem ipsum</h2>
+
+// Output:
+
+<h2>Lorem ipsum</h2>
+
+// ----------------------------------------------------
+
+// 2. Select by ID
+
+document.querySelector("#title")
+
+// # means ID
+
+// Example:
+
+<h1 id="title">DOM Learning</h1>
+
+// Output:
+
+<h1 id="title">DOM Learning</h1>
+
+// ----------------------------------------------------
+
+// 3. Select by class
+
+document.querySelector(".heading")
+
+// . means class
+
+// Example:
+
+<h1 class="heading">
+
+// Output:
+
+<h1 class="heading">
+
+// ----------------------------------------------------
+
+// 4. Select using attributes
+
+document.querySelector('input[type="password"]')
+
+// Selects first input whose type=password
+
+// Example:
+
+<input type="password">
+
+// Output:
+
+<input type="password">
+
+// If no matching element exists:
+
+document.querySelector('input[type="password"]')
+
+// Output:
+
+null
+
+// ----------------------------------------------------
+
+// querySelector syntax summary:
+
+document.querySelector("tag")
+
+document.querySelector("#id")
+
+document.querySelector(".class")
+
+document.querySelector('[attribute="value"]')
+
+// Important:
+
+querySelector()
+// returns SINGLE first matching element
+
+querySelectorAll()
+// returns NodeList (multiple elements)
+
+One thing from your screenshot:
+
+```javascript
+document.querySelector('input[type="password"]')
+```
+
+returned:
+
+```text
+null
+```
+
+because your page does **not contain any password input field**. So querySelector could not find anything. #}
+
+{# first-child is a CSS selector.
+
+It means:
+
+Select the first child element inside a parent.
+
+Example:
+
+HTML:
+
+<div>
+    <p>one</p>
+    <p>two</p>
+    <p>three</p>
+</div>
+
+If you do:
+
+document.querySelector("p:first-child")
+
+Output:
+
+<p>one</p>
+
+because:
+
+div
+├── p ← first child ✅
+├── p
+└── p #}
+
+
+
+
+{# 
+Since you want notes, here is the cleaned version to add.
+
+// DOM Selection + Manipulation Notes
+
+// 1. Select the first <ul>
+
+document.querySelector("ul")
+
+// Output:
+
+<ul>...</ul>
+
+// Finds and returns FIRST unordered list (<ul>)
+
+// ----------------------------------------------------
+
+// Store selected ul in variable
+
+const myul = document.querySelector("ul")
+
+// Output:
+undefined
+
+// Why?
+// Variable is created.
+// Console does not return assigned variables.
+
+// ----------------------------------------------------
+
+// Select first <li> inside ul
+
+myul.querySelector("li")
+
+// Output:
+
+<li>...</li>
+
+// Returns FIRST list item
+
+// ----------------------------------------------------
+
+// Store first li
+
+const turnGreen = myul.querySelector("li")
+
+// Output:
+undefined
+
+// Variable created
+
+// ----------------------------------------------------
+
+// Change background color
+
+turnGreen.style.backgroundColor = "green"
+
+// Output:
+
+"green"
+
+// Effect:
+// first li background becomes green
+
+// ----------------------------------------------------
+
+// Add padding
+
+turnGreen.style.padding = "10px"
+
+// Output:
+
+"10px"
+
+// Effect:
+// padding added around content
+
+// ----------------------------------------------------
+
+// Final effect:
+
+<li style="
+background-color:green;
+padding:10px;
+">
+
+// Important:
+
+querySelector()
+// returns first matching element
+
+style.property
+// modifies CSS directly
+
+One small concept:
+
+```javascript
+const myul = document.querySelector("ul")
+```
+
+returns `undefined` in console because:
+
+```text
+assignment happened
+but console doesn't print assignment result
+```
+
+But later:
+
+```javascript
+console.log(myul)
+```
+
+would show:
+
+```html
+<ul>...</ul>
+``` #}
+
+{# 
+// Selecting multiple elements
+
+
+
+
+// Select ALL li elements
+
+document.querySelectorAll("li")
+
+// Output:
+
+NodeList(4)
+
+// Access second li
+
+document.querySelectorAll("li")[1]
+
+// Output:
+
+// Indexing starts from 0
+
+0 → first
+1 → second
+2 → third
+
+
+
+
+// ----------------------------------------------------
+
+// Select second ul
+
+document.querySelectorAll("ul")[1]
+
+// Output:
+
+
+
+
+// ----------------------------------------------------
+
+// Store second li
+
+const secondLi =
+document.querySelectorAll("li")[1]
+
+// Change style
+
+secondLi.style.backgroundColor =
+"green"
+
+// Output:
+
+"green"
+
+
+
+
+// Important:
+
+querySelector()
+// returns FIRST match
+
+querySelectorAll()
+// returns ALL matches (NodeList) #}
+
+
+{# // NodeList and Styling Notes
+
+document.querySelectorAll("li")
+
+// Output:
+
+NodeList(6) [li, li, li, li, li, li]
+
+// Meaning:
+// All <li> elements from entire page are selected.
+
+// IMPORTANT:
+// querySelectorAll() returns NodeList
+
+// ----------------------------------------------------
+
+// Store NodeList
+
+const tempLiList =
+document.querySelectorAll("li")
+
+// Output:
+undefined
+
+// Why?
+// Variable assignment happened.
+// Console does not print assigned value.
+
+// ----------------------------------------------------
+
+// WRONG
+
+tempLiList.style.color = "green"
+
+// Output:
+
+TypeError:
+Cannot set properties of undefined
+
+// Why?
+
+tempLiList is a NodeList
+
+NodeList ≠ Single HTML Element
+
+JS thinks:
+
+NodeList.style
+
+which does not exist
+
+// ----------------------------------------------------
+
+// WRONG
+
+tempLiList.style.color = "green"
+
+// Output:
+
+TypeError
+
+// ----------------------------------------------------
+
+// CORRECT
+
+tempLiList[0].style.color =
+"green"
+
+// Output:
+
+"green"
+
+// Meaning:
+
+Select first li
+↓
+
+Change its color
+
+// ----------------------------------------------------
+
+// Access second li
+
+tempLiList[1].style.color =
+"red"
+
+// Changes second li
+
+// ----------------------------------------------------
+
+// NodeList vs Array
+
+NodeList
+→ collection of DOM elements
+
+Array
+→ general JS collection
+
+They are SIMILAR:
+✔ indexing
+✔ length
+✔ looping
+
+Examples:
+
+tempLiList[0]
+
+tempLiList.length
+
+tempLiList.forEach()
+
+But NOT SAME:
+
+NodeList does NOT support all array methods
+
+Example:
+
+tempLiList.map()
+
+// Error
+
+// Convert NodeList → Array
+
+Array.from(tempLiList)
+
+// Important:
+
+querySelector()
+// returns single element
+
+querySelectorAll()
+// returns NodeList
+
+NodeList[index]
+// returns actual HTML element #}
+
+//Use NOde list with For Each loop because it's NOT array so map cannot be applied to it
+
+Add this continuation to your notes:
+
+// Selecting multiple h1 elements
+
+const h1 = document.querySelectorAll("h1")
+
+Output:
+NodeList(10)
+
+Meaning:
+All h1 elements in document are selected and stored in h1.
+
+NodeList(10)
+means:
+10 matching h1 elements were found.
+
+// Access first h1 and change color
+
+h1[0].style.color = "green"
+
+Output:
+
+"green"
+
+Effect:
+First h1 text color becomes green.
+
+// Access elements inside NodeList
+
+h1[0]
+
+Output:
+
+<h1 ...>
+
+Returns first HTML element
+
+h1[1]
+
+Output:
+
+<h1 ...>
+
+Returns second HTML element
+
+// Store all li elements
+
+const tempLiList =
+document.querySelectorAll("li")
+
+Output:
+
+undefined
+
+Meaning:
+Variable assignment happened.
+
+// Wrong variable name
+
+templ
+
+Output:
+
+ReferenceError:
+templ is not defined
+
+Meaning:
+JS cannot find variable named templ.
+
+Correct variable:
+
+tempLiList
+
+// Apply style to ALL li elements
+
+tempLiList.forEach(function (l) {
+l.style.backgroundColor =
+"green"
+})
+
+Output:
+
+undefined
+
+Effect:
+All li elements get green background.
+
+// forEach explanation
+
+forEach()
+
+Visits each element one by one.
+
+Iteration 1:
+l → first li
+
+Iteration 2:
+l → second li
+
+Iteration 3:
+l → third li
+
+...
+
+Style applied to each.
+
+// Access document object
+
+document
+
+Output:
+
+#document
+
+Meaning:
+Entire webpage DOM object.
+
+// Important
+
+querySelectorAll()
+returns NodeList
+
+NodeList[index]
+returns single HTML element
+
+forEach()
+can apply operation to all elements
+
+One small correction from your screenshot:
+
+```javascript
+tempLiList.forEach(function (l) {
+   l.style.backgroundColor = green
+})
+```
+
+The color should be:
+
+```javascript
+"green"
+```
+
+with quotes. Otherwise JS treats `green` as a variable.
+
+
+Add this continuation to your notes:
+
+// getElementsByClassName()
+
+document.getElementsByClassName("list-item")
+
+Output:
+
+HTMLCollection(3)
+
+Meaning:
+All elements having class
+"list-item" are selected.
+
+Example HTML:
+
+<li class="list-item">one</li>
+
+<li class="list-item">two</li>
+
+<li class="list-item">three</li>
+
+Store collection:
+
+const tempClassList =
+document.getElementsByClassName("list-item")
+
+Output:
+
+undefined
+
+Variable assignment happened.
+
+// HTMLCollection vs Array
+
+HTMLCollection
+is SIMILAR to array
+
+Supports:
+✔ indexing
+✔ length
+
+Examples:
+
+tempClassList[0]
+
+tempClassList.length
+
+But NOT SAME:
+
+HTMLCollection.forEach()
+
+Output:
+
+TypeError
+
+Because HTMLCollection
+does not support forEach.
+
+// Convert HTMLCollection → Array
+
+const myConvertedArray =
+Array.from(tempClassList)
+
+Output:
+
+Array(3)
+
+Meaning:
+
+HTMLCollection
+↓
+
+Array.from()
+
+↓
+
+Array
+
+Now forEach works
+
+myConvertedArray.forEach(function(li){
+
+li.style.backgroundColor =
+"green"
+
+})
+
+Output:
+
+undefined
+
+Effect:
+
+All elements become green.
+
+Another example:
+
+myConvertedArray.forEach(function(li){
+
+li.style.color =
+"black"
+
+})
+
+Output:
+
+undefined
+
+Effect:
+
+Text color changes.
+
+Important:
+
+getElementsByClassName()
+
+↓
+
+HTMLCollection
+
+querySelectorAll()
+
+↓
+
+NodeList
+
+Array.from()
+
+↓
+
+Converts collection to Array
+
+Array
+
+↓
+
+supports forEach()
+
+Small memory trick:
+
+```text
+HTMLCollection → convert first
+
+NodeList → forEach directly
+```
+
+Add this continuation to your notes:
+
+// Applying styles and text changes using forEach()
+
+myH2.forEach(function(h){
+
+```
+h.style.color = "red"
+```
+
+})
+
+Output:
+
+undefined
+
+Effect:
+
+All selected h2 text becomes red.
+
+// ----------------------------------------------------
+
+myH2.forEach(function(h){
+
+```
+h.style.color = "black"
+
+h.style.backgroundColor =
+"green"
+
+h.style.padding =
+"10px"
+```
+
+})
+
+Output:
+
+undefined
+
+Effect:
+
+All selected h2 elements become:
+
+Text:
+black
+
+Background:
+green
+
+Padding:
+10px
+
+// ----------------------------------------------------
+
+myH2.forEach(function(h){
+
+```
+h.style.color =
+"black"
+
+h.style.backgroundColor =
+"green"
+
+h.style.padding =
+"10px"
+
+h.innerText =
+"Hitesh"
+```
+
+})
+
+Output:
+
+undefined
+
+Effect:
+
+Every selected h2:
+
+✔ text becomes black
+
+✔ background becomes green
+
+✔ padding becomes 10px
+
+✔ content changes to:
+
+Hitesh
+
+// ----------------------------------------------------
+
+// Explanation of forEach
+
+myH2.forEach(function(h))
+
+Meaning:
+
+Take every element
+inside NodeList
+
+↓
+
+Store current element in h
+
+↓
+
+Apply operations
+
+Iteration 1:
+
+h → first h2
+
+Iteration 2:
+
+h → second h2
+
+Iteration 3:
+
+h → third h2
+
+// Important
+
+style.color
+→ changes text color
+
+style.backgroundColor
+→ changes background
+
+style.padding
+→ adds internal spacing
+
+innerText
+→ changes visible text
+
+One important observation from your screenshot:
+
+```javascript id="u8r0c6"
+myH2.forEach(...)
+```
+
+returns:
+
+```text id="tl8yma"
+undefined
+```
+
+This is normal because:
+
+```text id="8z1o91"
+forEach performs actions
+but returns nothing
+``` #}
