@@ -11,11 +11,22 @@
         <p>Try and guess a number between 1 and 100</p>
         <p>You have 10 attempts to guess the right number</p>
         <br>
-        <form class = "form"></form>
+        <form class = "form">
+            <label for="guessField" id = "guess"> Guess a Number</label>
+            <input type="text" id = "guessField" class = "guessField">
+            <input type = "submit" id = "subt" value = "submit guess" class = "guessField">
+            
+        </form>
+        <div class = "result">
+            <p>Previous Guesses: <span class = "guesses"></span></p>
+            <p>Guesses Remaining: <span class = "lastResult">10</span></p>
+            <p class = "lowOrHi"></p>
+        </div>
     
     
     
     
     </div>
 </body>
+<script src = "script.js"></script>
 </html>
