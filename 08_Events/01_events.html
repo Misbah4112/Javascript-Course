@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html events</title>
+</head>
+<body>
+    <h2>Amazing image</h2>
+    <ul id = "images">
+        <li><img width = "200px" id = "photoshop" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvjNjfZ73J-geQIgcR9qoGJNhKsVNhK1uOW88oCu5ooQ&s" alt = "photoshop"></li>
+
+        <li><img width = "200px" id = "japan" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFrlQt6jP8t_F3pIe6DvJ1htPdmLfZLvlU63IidpteUw&s=10" alt = "japan"></li>
+
+        <li><img width = "200px" id = "river" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJQ6NNBUx1EQ2FUuJv-1TeUCS6M5GAUdob_84wFsiaQ&s=10" alt = "river"></li>
+
+         <li><img width = "200px" id = "owl" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGXBhWth8VTIHx1nQjAWEv4tNqE3XTuxx1inLPU5lMPA&s=10" alt = "owl"></li>
+
+        
+        <li><a href = "https://google.com" id = "google">Google</a></li>
+
+    </ul>
+    
+</body>
+<script>
+   // const owl = document.getElementById('owl').onclick = function(){
+    //alert("owl clicked")}
+    //using onclick is not a very good approach because it has limited features
+document.getElementById('owl').addEventListener('click', function (){
+alert("owl clicked"), false})
+//third parameter is a default  one usually false. run CHILD first
+/*
+then PARENT
+
+(child → parent)
+
+Example:
+
+Click owl:
+
+owl clicked
+↓
+
+ul clicked
+addEventListener(
+'click',
+fn,
+true
+)
+
+means:
+
+run PARENT first
+then CHILD
+
+(parent → child)
+
+Example:
+
+Click owl:
+
+ul clicked
+↓
+
+owl clicked
+
+Easy memory:
+
+false
+↑
+bubble up
+
+true
+↓
+capture down
+
+    
+*/
+
+
+
+
+
+
+//=====================================
+
+//attachEvent() => was used on internal explorer time
+
+//jQuery = on(on was used instead of addEvent Listener)
+
+
+
+//topics:
+//type,timestamp,defaultPrevent
+//target,toElement,srcElement,currentTarget
+//clientX,clientY, screenX, screenY
+//altkey,ctrlkey,shiftkey,keycode
+
+//mostly in functions, we pass event object e which is used
+addEventListener('click', function (e){
+console.log(e);
+})
+
+/* event propagation has 2 contexts 
+1)event public(false)
+2)event capturing(true)
+*/
+
+document.getElementById('images').addEventListener('click',function(e){
+console.log('clicked inside ul')
+},false)
+
+document.getElementById('owl').addEventListener('click',function(e){
+console.log('owl clicked')
+e.stopPropagation();
+},false)
+
+
+//here when we click owl when its false, it goes from child -> parent. first prints owl clicked and then clicked inside ul prints
+
+
+document.getElementById('images').addEventListener('click',function(e){
+console.log('clicked inside ul')
+},true)
+
+document.getElementById('owl').addEventListener('click',function(e){
+console.log('owl clicked')
+},true)
+
+//if we do with true, event capturing then first parent runs then child so first clicked inside ul prints and then owl clicked.
+
+
+//if we dont want both to run and keep then separate then we run e.stopPropagation
+
+
+
+document.getElementById('google').addEventListener('click', function(e){
+    e.preventDefault()
+e.stopPropagation()
+    console.log("google clicked")
+})
+
+
+document.querySelector('#images').addEventListener('click',function(e){
+console.log(e.target);
+//target returns clicking on WHICH target is causing the event to occur. here it gives image url
+console.log(e.target.parentNode)// this returns full li which was the parent of img thats caused event to occur. because here we want to delete entire li. else image would be delete but li would still remain
+
+console.log(e.target.tagName) //tells on clicking in console if we clicked an image or a list
+
+if(e.target.tagName === 'IMG'){
+console.log(e.target.id)
+
+let removeit = e.target.parentNode
+//removeit.remove(); one way
+
+removeit.parentNode.removeChild(removeit) //2nd method
+
+}
+
+})
+
+</script>
+</html>
