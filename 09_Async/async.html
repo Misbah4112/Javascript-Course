@@ -1,0 +1,580 @@
+
+/*
+js  is synchronous (line by line execution of code) and single threaded (in 1 thread, it executes which makes along js schoked, slow in performance but mostly js is never found alone, it's always found in a runtime environment like with browser, engines,node js which never makes it slow) 
+
+what we said above is for DEFAULT js.
+
+Execution Context = > execute one line of code at a time
+
+|   console.log 1
+|   console.log 2
+|
+
+ until first log executes, 2nd cannot execute. thats how it works
+
+
+
+
+
+Blocking Code             Non- Blocking Code
+     |                        | 
+     |                        |
+     |                        |
+     |                        |
+->Blocks flow of program     -> Does not block flow of program
+->Read file synchronously    -> Read file asynchronously
+ 
+=> Reading file synchronously means the code cannot do anything else until this code executes. it's just like if i tell u not to do anything until i am back and u cannot eat,sleep, use phone. While asynchronously means u can carry out with the rest of the stuff till this code executes. it's mostly found in os concepts and databases. 
+
+=> we often think asynchronous then sounds better to work with BUT consider this case then where a user wants to register and data is being extracted from database now i send the user a msg of registeration successful but i did not get the data yet. what if there was an error when this part of the code ran due to some wrong info/ but i already sent a successful msg to user. to avoid such a situation, reading through synchronous is better here. 
+
+Therefore which execution is better TOTALLY DEPENDS ON USE CASE
+
+
+=======================================================================================================
+CHECK IMAGE FOR FURTHER CLARITY
+---
+
+# JavaScript Runtime Architecture
+
+This diagram explains:
+
+```text
+How JavaScript handles async operations
+without becoming blocked
+```
+
+---
+
+## 1. JavaScript Engine
+
+(JS itself)
+
+Contains mainly:
+
+### Memory Heap
+
+```text
+Stores variables, objects, arrays, data
+```
+
+Example:
+
+```javascript
+let name = "Misbah"
+
+const arr = [1,2,3]
+```
+
+Stored here.
+
+---
+
+### Call Stack
+
+```text
+Tracks currently executing code
+```
+
+Example:
+
+```javascript
+function one(){
+two()
+}
+
+function two(){
+console.log("hello")
+}
+
+one()
+```
+
+Stack:
+
+```text
+two()
+↓
+
+one()
+
+↓
+
+Global
+```
+
+When `two()` finishes:
+
+```text
+one()
+
+↓
+
+Global
+```
+
+Then empty.
+
+---
+
+## 2. JavaScript is Single Threaded
+
+Correct.
+
+Means:
+
+```text
+One call stack
+
+One operation executes at a time
+```
+
+Example:
+
+```javascript
+console.log(1)
+
+while(true){}
+
+console.log(2)
+```
+
+Output:
+
+```text
+1
+```
+
+Then browser freezes.
+
+Because JS cannot continue.
+
+---
+
+## 3. Browser Web APIs (NOT JS)
+
+You said:
+
+> JS works with browser and DOM
+
+Correct.
+
+Things NOT inside JS engine:
+
+```text
+DOM
+
+setTimeout
+
+setInterval
+
+fetch
+
+geolocation
+
+localStorage
+```
+
+These are provided by browser.
+
+---
+
+## 4. setTimeout Flow
+
+Example:
+
+```javascript
+console.log("A")
+
+setTimeout(
+()=>{
+console.log("B")
+},
+2000
+)
+
+console.log("C")
+```
+
+Execution:
+
+---
+
+Global enters Call Stack
+
+```text
+Global
+```
+
+Run:
+
+```text
+console.log("A")
+```
+
+Output:
+
+```text
+A
+```
+
+---
+
+JS sees:
+
+```javascript
+setTimeout()
+```
+
+Moves work to:
+
+```text
+Web API
+```
+
+Timer starts:
+
+```text
+2 sec
+```
+
+JS DOES NOT WAIT.
+
+Continue:
+
+```text
+console.log("C")
+```
+
+Output:
+
+```text
+A
+C
+```
+
+After 2 sec:
+
+Callback goes:
+
+```text
+Task Queue
+```
+
+Then:
+
+```text
+Event Loop
+```
+
+checks:
+
+```text
+Is Call Stack empty?
+```
+
+YES
+
+↓
+
+Push callback into stack
+
+↓
+
+Output:
+
+```text
+B
+```
+
+Final:
+
+```text
+A
+C
+B
+```
+
+---
+
+## 5. Event Loop (MOST IMPORTANT)
+
+This guy keeps checking:
+
+```text
+Call Stack empty?
+```
+
+If yes:
+
+Move queue → stack
+
+Continuously.
+
+---
+
+## 6. fetch() is different
+
+You understood this mostly.
+
+Example:
+
+```javascript
+fetch("api.com")
+.then(()=>{
+console.log("done")
+})
+```
+
+Flow:
+
+Call Stack
+
+↓
+
+Web API
+
+↓
+
+fetch creates Promise
+
+↓
+
+Promise result enters:
+
+```text
+Microtask Queue
+```
+
+NOT task queue.
+
+Event loop gives this queue:
+
+```text
+HIGHER PRIORITY
+```
+
+So:
+
+Order:
+
+```text
+Call Stack
+
+↓
+
+Microtask Queue
+(Promises)
+
+↓
+
+Task Queue
+(setTimeout)
+```
+
+Example:
+
+```javascript
+setTimeout(
+()=>console.log("timeout"),
+0
+)
+
+Promise.resolve()
+.then(
+()=>console.log("promise")
+)
+```
+
+Output:
+
+```text
+promise
+
+timeout
+```
+
+Even though timeout is 0.
+
+---
+
+Your sentence:
+
+> promises are used in it and it says notify me when work is done
+
+Small improvement:
+
+```text
+Promise =
+object representing
+future completion
+or failure
+of async work
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+why are u saying that it checks if stack is empty and then when stack gets empty, it moves from queue to stack? should it not go to stack immediately which the speicifc time reaches without seeing if stack is empty?
+
+This is actually the exact question that makes people finally understand the event loop.
+
+Your thinking is:
+
+Timer finished → why not immediately execute?
+
+Because:
+
+Web APIs
+CANNOT
+push directly
+into Call Stack
+
+Only the JS engine controls the call stack.
+
+Think of call stack as:
+
+One-person office
+
+Only one person can work.
+
+Example:
+
+console.log("A")
+
+setTimeout(
+()=>{
+console.log("B")
+},
+0
+)
+
+for(let i=0;i<10000000000;i++){}
+
+console.log("C")
+
+Your thinking says:
+
+timeout = 0
+↓
+
+put B immediately
+
+But actual execution:
+
+Stack:
+
+Global
+
+Execute:
+
+A
+
+Output:
+
+A
+
+See:
+
+setTimeout(...)
+
+Move timer to Web API.
+
+Timer ends immediately:
+
+callback ready
+
+BUT JS is still busy here:
+
+for(...)
+
+Call Stack:
+
+Global
+↓
+
+for loop
+
+Stack not empty.
+
+So callback waits.
+
+It goes to:
+
+Task Queue
+
+Waiting.
+
+After loop ends:
+
+console.log("C")
+
+Output:
+
+C
+
+NOW:
+
+Stack:
+
+empty
+
+Event Loop:
+
+Stack empty?
+YES
+
+Move callback:
+
+Task Queue
+↓
+
+Call Stack
+
+Output:
+
+B
+
+Final:
+
+A
+C
+B
+
+NOT:
+
+A
+B
+C
+
+because if callbacks interrupted running JS:
+
+single-threaded
+would break
+
+So rule:
+
+Timer finishing
+≠ execute
+
+Timer finishing
+=
+becomes ELIGIBLE
+
+Event loop waits
+until stack empty
+
+
+*/
