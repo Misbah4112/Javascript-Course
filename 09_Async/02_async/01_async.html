@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 1</title>
+</head>
+<body>
+
+    <h1>Chai aur Code</h1>
+<button id = "stop">Stop</button>    
+</body>
+<script>
+    setTimeout(function(){console.log("Misbah")},2000) //method that also calls an API. it has 2 parameters 1st is handler which means a callback function with no name and 2nd is the timer. only executes once 
+
+    const sayMisbah = function(){console.log("Misbah")}
+    setTimeout(sayMisbah,2000) 
+    
+    setInterval() //similar to timeout but setTimeout only happns once but interval says after the time given i will execute it repeatedly with that time gap
+
+
+    document.querySelector('h1').innerHTML = "best js Series"  //if i want this to happen after 2 secs
+const changeText = function(){
+document.querySelector('h1').innerHTML = "best js Series"
+}
+
+const changeMe = setTimeout(changeText,2000)
+//how to stop that timeout?
+clearTimeout(changeMe)  //it requires the reference of which timeout i want to execute 
+//this approach above is not v.good because first we are setting timeout and immediately clearing it. a better approach is through event listener where on clicking stop we clearTimeout and if we click after 2 secs then no benefit because it executions setTimeout already
+
+document.querySelector('#stop').addEventListener('click', function() {
+clearTimeout(changeMe) 
+console.log('Stopped')
+})
+
+</script>
+</html>
