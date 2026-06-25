@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', requestUrl)
+    xhr.onreadystatechange = function(){
+    
+    console.log(xhr.readyState)
+    if(xhr.readyState === 4){
+    const data = JSON.parse(this.responseText)
+console.log(data.followers);
+
+}
+    
+    }
+    xhr.send()
+
+
+    //go to https://github.com/v8/v8 then source then d8 then console.cc. that is where console.log came from  and u can study v8 engine and this further from there
+</script>
+</html>
+
+/*
+This code is showing **how JavaScript talks to an API manually using XMLHttpRequest (old method).**
+
+Goal:
+
+```text
+Ask GitHub:
+"Give me data of user hiteshchoudhary"
+
+↓
+
+Receive data
+
+↓
+
+Extract followers
+```
+
+Let's go line by line.
+
+---
+
+### Step 1 — API URL
+
+```javascript
+const requestUrl =
+'https://api.github.com/users/hiteshchoudhary'
+```
+
+Store address.
+
+Think:
+
+```text
+requestUrl
+↓
+
+destination
+↓
+
+GitHub server
+```
+
+---
+
+### Step 2 — Create request object
+
+```javascript
+const xhr =
+new XMLHttpRequest()
+```
+
+Creates a request object.
+
+Think:
+
+```text
+empty delivery truck
+```
+
+Nothing sent yet.
+
+---
+
+### Step 3 — Configure request
+
+```javascript
+xhr.open(
+'GET',
+requestUrl
+)
+```
+
+Meaning:
+
+```text
+GET
+↓
+
+I want data
+
+FROM
+
+GitHub URL
+```
+
+Still not sent.
+
+---
+
+### Step 4 — Listen for changes
+
+```javascript
+xhr.onreadystatechange =
+function(){
+
+}
+```
+
+Meaning:
+
+```text
+Whenever request status changes
+
+↓
+
+run this function
+```
+
+Request has stages.
+
+---
+
+Inside:
+
+```javascript
+console.log(
+xhr.readyState
+)
+```
+
+Print current stage.
+
+Values:
+
+```text
+0 → request created
+
+1 → open() called
+
+2 → request received
+
+3 → loading
+
+4 → completed
+```
+
+---
+
+### Step 5 — Wait until complete
+
+```javascript
+if(
+xhr.readyState===4
+)
+```
+
+Meaning:
+
+```text
+ONLY continue
+
+when data fully arrives
+```
+
+Otherwise response may be incomplete.
+
+---
+
+### Step 6 — Convert JSON string
+
+```javascript
+const data =
+JSON.parse(
+this.responseText
+)
+```
+
+This is usually the confusing line.
+
+GitHub returns:
+
+```text
+"{...}"
+```
+
+string.
+
+Example:
+
+```text
+'{
+"name":"Hitesh",
+"followers":100
+}'
+```
+
+Strings cannot do:
+
+```javascript
+data.followers
+```
+
+So convert:
+
+```javascript
+JSON.parse()
+```
+
+Now becomes:
+
+```javascript
+{
+name:"Hitesh",
+followers:100
+}
+```
+
+object.
+
+---
+
+### Step 7 — Access property
+
+```javascript
+console.log(
+data.followers
+)
+```
+
+Output:
+
+```text
+10000+
+```
+
+(example followers count)
+
+---
+
+### Step 8 — Send request
+
+```javascript
+xhr.send()
+```
+
+THIS is actual sending.
+
+Before this:
+
+```text
+nothing happens
+```
+
+---
+
+Full flow:
+
+```text
+Create request
+↓
+
+open()
+
+↓
+
+send()
+
+↓
+
+GitHub receives
+
+↓
+
+returns JSON
+
+↓
+
+readyState changes
+
+↓
+
+readyState=4
+
+↓
+
+JSON.parse()
+
+↓
+
+extract followers
+
+↓
+
+print
+```
+
+One important thing:
+
+This:
+
+```javascript
+xhr.send()
+```
+
+does NOT wait.
+
+JS continues running.
+
+Later browser says:
+
+```text
+Data arrived
+```
+
+then:
+
+```javascript
+onreadystatechange
+```
+
+executes.
+
+*/
