@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Button Clicked</button>
+</body>
+<script>
+    class React{
+    constructor(){
+    this.library = "React"
+this.server = "https://localhost:3000"
+
+
+//requirement: my requirement is if i click on the button, i want it to run the function handler and print button clicked and access properties of react also with the help of it
+
+document
+.querySelector('button')
+.addEventListener('click',this.handler.bind(this))
+
+
+}
+
+handler(){
+console.log("button clicked")
+console.log(this) //gives button which means button is being accessed but not getting prperies like server and library. so for this purpose we add keyword bind to and pass this in it to bind the proties with it when handler is called
+console.log(this.server)
+}
+    
+    
+    }
+
+    const app = new React()
+</script>
+</html>
+
+{# 
+
+javascript
+document
+.querySelector('button')
+.addEventListener('click', this.handler.bind(this))
+
+We'll build it piece by piece.
+
+---
+
+# Step 1: What is `this` here?
+
+Inside the constructor:
+
+```javascript
+constructor() {
+    this.library = "React";
+    this.server = "https://localhost:3000";
+}
+```
+
+`this` refers to the object created from the class.
+
+Imagine:
+
+```javascript
+const app = new React();
+```
+
+Then `this` is:
+
+```javascript
+this = app
+
+{
+    library: "React",
+    server: "https://localhost:3000"
+}
+```
+
+---
+
+# Step 2: What is `this.handler`?
+
+Your class has a method:
+
+```javascript
+handler() {
+    console.log("button clicked");
+    console.log(this.server);
+}
+```
+
+When you write
+
+```javascript
+this.handler
+```
+
+you're **not calling** it.
+
+You're simply getting a reference to the function.
+
+Think of it like this:
+
+```javascript
+const fn = this.handler;
+```
+
+Now
+
+```javascript
+fn
+```
+
+contains
+
+```javascript
+function handler() {
+    console.log("button clicked");
+    console.log(this.server);
+}
+```
+
+Notice there are **no parentheses**.
+
+So
+
+```javascript
+this.handler
+```
+
+means
+
+> "Give me the handler function."
+
+NOT
+
+> "Run the handler function."
+
+---
+
+# Step 3: What happens if you pass only `this.handler`?
+
+```javascript
+addEventListener("click", this.handler)
+```
+
+The browser stores your function.
+
+Later...
+
+You click the button.
+
+The browser does something similar to:
+
+```javascript
+handler.call(button);
+```
+
+or
+
+```javascript
+button.handler();
+```
+
+Either way,
+
+inside `handler`
+
+```javascript
+this
+```
+
+becomes
+
+```javascript
+<button>
+```
+
+So
+
+```javascript
+console.log(this.server);
+```
+
+becomes
+
+```javascript
+button.server
+```
+
+which is
+
+```javascript
+undefined
+```
+
+because buttons don't have a `server` property.
+
+---
+
+# Step 4: What does `.bind(this)` do?
+
+This is the important part.
+
+When you write
+
+```javascript
+this.handler.bind(this)
+```
+
+JavaScript **doesn't run** `handler`.
+
+Instead, it creates a **new function**.
+
+Imagine it like this:
+
+```javascript
+const newFunction = this.handler.bind(this);
+```
+
+Internally it's almost like JavaScript creates:
+
+```javascript
+function newFunction(...args) {
+    return handler.call(this, ...args);
+}
+```
+
+where `this` has already been fixed to your React object.
+
+So now
+
+```javascript
+newFunction
+```
+
+always remembers
+
+```javascript
+this = React object
+```
+
+---
+
+# Step 5: What gets passed to addEventListener?
+
+Without bind:
+
+```javascript
+addEventListener("click", this.handler)
+```
+
+passes
+
+```javascript
+handler
+```
+
+With bind:
+
+```javascript
+addEventListener("click", this.handler.bind(this))
+```
+
+passes
+
+```javascript
+newFunction
+```
+
+which permanently remembers
+
+```javascript
+this = React object
+```
+
+---
+
+# Step 6: What happens when the button is clicked?
+
+Browser executes
+
+```javascript
+newFunction();
+```
+
+Since `newFunction` was created by `bind`, it already knows
+
+```javascript
+this = React object
+```
+
+So inside
+
+```javascript
+handler()
+```
+
+`this` becomes
+
+```javascript
+{
+    library: "React",
+    server: "https://localhost:3000"
+}
+```
+
+Now
+
+```javascript
+console.log(this.server);
+```
+
+prints
+
+```text
+https://localhost:3000
+```
+
+---
+
+# Visual summary
+
+### Without bind
+
+```text
+this.handler
+      │
+      ▼
+handler function
+      │
+      ▼
+Browser stores it
+      │
+      ▼
+Click
+      │
+      ▼
+Browser calls it
+      │
+      ▼
+this = button ❌
+```
+
+---
+
+### With bind
+
+```text
+this.handler
+      │
+      ▼
+handler function
+      │
+      ▼
+bind(this)
+      │
+      ▼
+NEW function
+(remembers React object)
+      │
+      ▼
+Browser stores it
+      │
+      ▼
+Click
+      │
+      ▼
+Browser calls NEW function
+      │
+      ▼
+this = React object ✅
+```
+
+---
+
+## The most important thing to remember
+
+There are **three different things** here:
+
+```javascript
+this.handler
+```
+
+➡️ Gives you the function.
+
+---
+
+```javascript
+this.handler()
+```
+
+➡️ Runs the function immediately.
+
+---
+
+```javascript
+this.handler.bind(this)
+```
+
+➡️ Creates a **new function** that will always run with `this` set to the current React instance. It does **not** execute the function yet.
+
+That new function is what `addEventListener` stores and later calls when the button is clicked.
+
+#}
