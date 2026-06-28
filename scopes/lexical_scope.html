@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+
+<script>
+function outer(){
+let name = "misbah"
+
+    function inner(){
+        let username = "sara"
+    console.log(`Name is : ${name}`) ///work 
+    
+    }
+
+    function innerTwo(){
+    console.log(name); //works
+    //console.log(username); //does not work because imagine them like siblings and they cannot share but the real reason is scope of inner is within it's block so it's variable cannot be accessed outside of it
+    
+    }
+
+        //inner()//works
+
+    innerTwo() //does not work with username but works without username because name is accessible since it's inside the scope of outer
+    
+    }
+
+    outer()//works
+
+
+</script>
+</html>

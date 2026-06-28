@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+    
+</body>
+
+<script>
+    //now the concept of closure involves lexical scoping. it says that if we are RETURNING an inner function instead of calling it  in the outer function then it wont just return the INNER function means it wont just execute the inner function but take the full lexical scope along with it which means the the variables defined in the outer function will also be taken on it's return
+
+    function makeFunc(){
+        let name = "Mozilla"
+        function displayName(){
+        console.log(name)
+    }
+ return displayName
+
+}
+
+const myfunc = makeFunc()
+myfunc()
+
+//practical real example
+
+document.getElementById('orange').addEventListener('click', function (){
+document.body.style.backgroundColor = 'orange'
+
+})
+
+
+
+document.getElementById('green').addEventListener('click', function (){
+document.body.style.backgroundColor = 'green'})
+//now above can be done if we have to change colorof few buttons but what if we have 100 buttons? then we follow below
+
+function clickHandler(color){
+document.body.style.backgroundColor = `${color}`
+
+}
+
+document.getElementById('orange').onclick = clickHandler('orange')
+document.getElementById('green').onclick = clickHandler('green') // now the issue with this code is that immediately the function is executed before even clicking the button. to resolve this issue we use lexical scoping and closure
+
+
+function clickHandler(color){
+return function(){
+    document.body.style.backgroundColor = `${color}` //here color is accessible because of closure and lexical scoping
+}
+
+}
+
+document.getElementById('orange').onclick = clickHandler('orange')
+document.getElementById('green').onclick = clickHandler('green') 
+
+
+
+</script>
+</html>
